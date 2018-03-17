@@ -2,6 +2,7 @@
 KEY_SIZE = 128
 # размер блока в байтах
 BLOCK_SIZE = 16
+BLOCK_SIDE_SIZE = 4
 # число столбцов, составляющих State
 Nb = 4
 # длина ключа в 32-битных словах
@@ -79,41 +80,3 @@ def column_get(state: list, c: int):
 def column_set(state: list, c: int, column: list):
     for idx in range(len(state)):
         state[idx][c] = column[idx]
-
-
-def handle_product(column_item, poly_item):
-    if poly_item == 1:
-        return column_item
-    elif poly_item == 2:
-        if column_item < 0x80:
-            return column_item << 1
-        else:
-            column_item <<= 1
-            product = column_item ^ 0x1b
-            if product > 0xff:
-                product %= 0x100
-
-
-def mix_column(r):
-    a = r[:]
-    b = [0, 0, 0, 0]
-
-    for c in range(4):
-        h = r[c] >> 7
-        b[c] = r[c] << 1
-        b[c] ^= 0x1B & h
-
-    r[0] = b[0] ^ a[3] ^ a[2] ^ b[1] ^ a[1]  # 2 * a0 + a3 + a2 + 3 * a1
-    r[1] = b[1] ^ a[0] ^ a[3] ^ b[2] ^ a[2]  # 2 * a1 + a0 + a3 + 3 * a2
-    r[2] = b[2] ^ a[1] ^ a[0] ^ b[3] ^ a[3]  # 2 * a2 + a1 + a0 + 3 * a3
-    r[3] = b[3] ^ a[2] ^ a[1] ^ b[0] ^ a[0]  # 2 * a3 + a2 + a1 + 3 * a0
-
-    # r[0] %= 0x100
-    # r[1] %= 0x100
-    # r[2] %= 0x100
-    # r[3] %= 0x100
-
-
-q = [0xdb, 0x13, 0x53, 0x45]
-mix_column(q)
-print(q)

@@ -1,3 +1,5 @@
+import aes
+
 tables = {
     2: [0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c, 0x0e, 0x10, 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e,
         0x20, 0x22, 0x24, 0x26, 0x28, 0x2a, 0x2c, 0x2e, 0x30, 0x32, 0x34, 0x36, 0x38, 0x3a, 0x3c, 0x3e,
@@ -113,44 +115,15 @@ poly_inv = [
     [0x0B, 0x0D, 0x09, 0x0E]
 ]
 
-"""
+
 def product(a, b):
-    p = 0
-    for i in range(8):
-        if b & 1 == 1:
-            p ^= a
-        hi_bit_set = a & 0x80
-        a <<= 1
-        if hi_bit_set == 0x80:
-            a ^= 0x1b
-        b >>= 1
-    return p % 256
-"""
+    return tables[b][a] if b != 1 else a
 
 
-# Galois Multiplication
-def product(a, b):
-    return tables[b][a]
-
-
-# mixColumn takes a column and does stuff
-def mix_column(column):
+def mix_column(column, polynomial):
     temp = column[:]
-    column[0] = product(temp[0], 2) ^ product(temp[3], 1) ^ product(temp[2], 1) ^ product(temp[1], 3)
-    column[1] = product(temp[1], 2) ^ product(temp[0], 1) ^ product(temp[3], 1) ^ product(temp[2], 3)
-    column[2] = product(temp[2], 2) ^ product(temp[1], 1) ^ product(temp[0], 1) ^ product(temp[3], 3)
-    column[3] = product(temp[3], 2) ^ product(temp[2], 1) ^ product(temp[1], 1) ^ product(temp[0], 3)
 
-
-# mixColumnInv does stuff too
-def mix_column_inv(column):
-    temp = column[:]
-    column[0] = product(temp[0], 14) ^ product(temp[3], 9) ^ product(temp[2], 13) ^ product(temp[1], 11)
-    column[1] = product(temp[1], 14) ^ product(temp[0], 9) ^ product(temp[3], 13) ^ product(temp[2], 11)
-    column[2] = product(temp[2], 14) ^ product(temp[1], 9) ^ product(temp[0], 13) ^ product(temp[3], 11)
-    column[3] = product(temp[3], 14) ^ product(temp[2], 9) ^ product(temp[1], 13) ^ product(temp[0], 11)
-
-
-q = [242, 10, 34, 92]
-mix_column(q)
-print(q)
+    for a in range(aes.BLOCK_SIDE_SIZE):
+        column[a] = 0
+        for b in range(aes.BLOCK_SIDE_SIZE):
+            column[a] ^= product(temp[b], polynomial[a][b])
