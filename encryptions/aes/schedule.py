@@ -1,5 +1,7 @@
 import aes
 
+BYTE_SIZE = 8
+
 rcon = [
     0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a,
     0x2f, 0x5e, 0xbc, 0x63, 0xc6, 0x97, 0x35, 0x6a, 0xd4, 0xb3, 0x7d, 0xfa, 0xef, 0xc5, 0x91, 0x39,
@@ -20,30 +22,10 @@ rcon = [
 ]
 
 
-# returns a copy of the word shifted n bytes (chars)
-# positive values for n shift bytes left, negative values shift right
-def rotate(word, n):
-    return word[n:] + word[0:n]
-
-
-# iterate over each "virtual" row in the state table and shift the bytes
-# to the LEFT by the appropriate offset
-def shift_rows(state):
-    for i in range(4):
-        state[i * 4:i * 4 + 4] = rotate(state[i * 4:i * 4 + 4], i)
-
-
-# iterate over each "virtual" row in the state table and shift the bytes
-# to the RIGHT by the appropriate offset
-def shift_rows_inv(state):
-    for i in range(4):
-        state[i * 4:i * 4 + 4] = rotate(state[i * 4:i * 4 + 4], -i)
-
-
 # takes 4-byte word and iteration number
 def key_schedule_core(word, i):
     # rotate word 1 byte to the left
-    word = rotate(word, 1)
+    word = aes.rotate(word, 1)
     new_word = []
     # apply sbox substitution on all bytes of word
     for byte in word:
@@ -53,11 +35,13 @@ def key_schedule_core(word, i):
     return new_word
 
 
-# expand 256 bit cipher key into 240 byte key from which
+# expand 128 bit cipher key into 240 byte key from which
 # each round key is derived
-def expand_key(key_cipher):
+def expand_key(key):
+    key_cipher = key[:]
+
     key_cipher_size = len(key_cipher)
-    assert key_cipher_size == 32
+    assert key_cipher_size == 16
     # container for expanded key
     key_expanded = []
     size_current = 0
@@ -70,8 +54,7 @@ def expand_key(key_cipher):
         key_expanded.append(key_cipher[i])
     size_current += key_cipher_size
 
-    # generate the remaining bytes until we get a total key size
-    # of 240 bytes
+    # generate the remaining bytes until we get a total key size of 176 bytes
     while size_current < 176:
         # assign previous 4 bytes to the temporary storage t
         for i in range(4):
@@ -93,4 +76,5 @@ def expand_key(key_cipher):
 
 
 def create_round_key(key_expanded, n):
-    return key_expanded[(n * 16):(n * 16 + 16)]
+    round_key = key_expanded[(n * 16):(n * 16 + 16)]
+    return round_key
