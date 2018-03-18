@@ -7,7 +7,7 @@ import tkinter
 from messages import *
 
 DEFAULT_IP = '127.0.0.1'
-DEFAULT_PORT = '33001'
+DEFAULT_PORT = '33000'
 
 
 def receive():
@@ -28,7 +28,7 @@ def send(event=None):  # event is passed by binders.
     """Handles sending of messages."""
     msg = my_msg.get()
     my_msg.set("")  # Clears input field.
-    client_socket.send(bytes(msg, "utf8"))
+    client_socket.send(handle_send(msg))
 
 
 def on_closing(event=None):

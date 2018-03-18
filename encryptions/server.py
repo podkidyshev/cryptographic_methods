@@ -19,35 +19,35 @@ def accept_incoming_connections():
 def handle_client(sock, address):  # Takes client socket as argument.
     """Хэндлим клиента"""
     # Получим ник
-    name = sock.recv(BUFSIZ).decode("utf8")
+    name = handle_receive(sock.recv(BUFSIZ))
 
     if name == '{quit}':
         # Если вдруг кто-то не захотел болтать
         print('{} отсоединился'.format(address))
-        sock.send(bytes("{quit}", "utf8"))
+        sock.send(handle_send("{quit}"))
         sock.close()
         return
 
     client = Client(sock, address, name)
     # Прибывший
     welcome = 'Бобро пожаловать, {}! Если хотите выйти – введите {{quit}}.'.format(client.name)
-    client.sock.send(bytes(welcome, "utf8"))
+    client.sock.send(handle_send(welcome))
     # Скажем остальным
     msg = "{} присоединился к чату!".format(client.name)
-    broadcast(bytes(msg, "utf8"))
+    broadcast(msg)
 
     while True:
-        msg = client.sock.recv(BUFSIZ)
-        if msg != bytes("{quit}", "utf8"):
+        msg = handle_receive(client.sock.recv(BUFSIZ))
+        if msg != "{quit}":
             broadcast(msg, "{}: ".format(client.name))
         else:
             # разрываем соединение с этим клиентом
             name = client.name
             address = client.address
-            client.sock.send(bytes("{quit}", "utf8"))
+            client.sock.send(handle_send("{quit}"))
             client.delete()
             # Оповещение
-            broadcast(bytes("{} покинул чат.".format(name), "utf8"))
+            broadcast("{} покинул чат.".format(name))
             print('{} отсоединился'.format(address))
             break
 
@@ -55,7 +55,7 @@ def handle_client(sock, address):  # Takes client socket as argument.
 def broadcast(msg, prefix=""):  # prefix is for name identification.
     """Рассылаем сообщение всем клиентам"""
     for sock in Client.BASE:
-        sock.send(bytes(prefix, "utf8") + msg)
+        sock.send(handle_send(prefix + msg))
 
 
 class Client:
@@ -75,7 +75,7 @@ class Client:
 
         
 HOST = ''
-PORT = 33001
+PORT = 33000
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
 
