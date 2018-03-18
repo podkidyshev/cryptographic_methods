@@ -9,11 +9,11 @@ def decrypt(msg, key):
     blocks_count = len(local_msg) // 16
     blocks = [local_msg[idx * aes.BLOCK_SIZE:(idx + 1) * aes.BLOCK_SIZE] for idx in range(blocks_count)]
 
-    encryption = bytearray()
+    decryption = bytearray()
     for block in blocks:
-        encryption.extend(decrypt_block(block, local_key))
+        decryption.extend(decrypt_block(block, local_key))
 
-    return encryption
+    return decryption
 
 
 def decrypt_block(msg_block: bytearray, key: bytearray):

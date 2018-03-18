@@ -3,10 +3,6 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import random
-# Шифрование
-import aes
-import aes.encrypt
-import aes.decrypt
 
 
 def accept_incoming_connections():
