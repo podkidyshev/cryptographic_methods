@@ -4,13 +4,15 @@ from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import random
 
+from messages import *
+
 
 def accept_incoming_connections():
     """Обрабатываем новые подключения"""
     while True:
         sock, address = SERVER.accept()
         print("{} присоединился.".format(address))
-        sock.send(bytes("День добрый! Введите имя и нажмите Enter!", "utf8"))
+        sock.send(handle_send("День добрый! Введите имя и нажмите Enter!"))
         Thread(target=handle_client, args=(sock, address)).start()
 
 

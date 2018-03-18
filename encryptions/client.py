@@ -2,10 +2,9 @@
 """Script for Tkinter GUI chat client."""
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
-from time import sleep
-import aes.encrypt
-import aes.decrypt
 import tkinter
+
+from messages import *
 
 DEFAULT_IP = '127.0.0.1'
 DEFAULT_PORT = '33001'
@@ -15,7 +14,7 @@ def receive():
     """Handles receiving of messages."""
     while True:
         try:
-            msg = client_socket.recv(BUFSIZ).decode("utf8")
+            msg = handle_receive(client_socket.recv(BUFSIZ))
             msg_list.insert(tkinter.END, msg)
             if msg == '{quit}':
                 print('Разрываю соединение')

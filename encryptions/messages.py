@@ -9,7 +9,7 @@ def handle_send(msg: str, key_out=None, **kwargs):
 
     pack = kwargs
     pack['len'] = len(msg)
-    pack['msg'] = msg_local
+    pack['msg'] = str(msg_local)
     if key_out is not None:
         pack['encrypted'] = True
 
@@ -19,9 +19,9 @@ def handle_send(msg: str, key_out=None, **kwargs):
 def handle_receive(msg: bytearray, key_in=None):
     pack = json.loads(msg, encoding='utf-8')
 
+    pack['msg'] = eval(pack['msg'])
+
     if key_in is not None:
         pack['msg'] = aes.decrypt.decrypt(pack['msg'], key_in)
 
-    pack['msg'] = pack['msg'].decode('utf-8')[:pack['len']]
-
-    return pack['msg']
+    return pack['msg'].decode('utf-8')[:pack['len']]
