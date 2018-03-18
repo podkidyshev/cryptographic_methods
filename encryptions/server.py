@@ -2,52 +2,82 @@
 """Server for multithreaded (asynchronous) chat application."""
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
+import random
+# Шифрование
+import aes
+import aes.encrypt
+import aes.decrypt
 
 
 def accept_incoming_connections():
-    """Sets up handling for incoming clients."""
+    """Обрабатываем новые подключения"""
     while True:
-        client, client_address = SERVER.accept()
-        print("{} присоединился.".format(client_address, client_address))
-        client.send(bytes("День добрый! Введите имя и нажмите Enter!", "utf8"))
-        addresses[client] = client_address
-        Thread(target=handle_client, args=(client,)).start()
+        sock, address = SERVER.accept()
+        print("{} присоединился.".format(address))
+        sock.send(bytes("День добрый! Введите имя и нажмите Enter!", "utf8"))
+        Thread(target=handle_client, args=(sock, address)).start()
 
 
-def handle_client(client):  # Takes client socket as argument.
-    """Handles a single client connection."""
+def handle_client(sock, address):  # Takes client socket as argument.
+    """Хэндлим клиента"""
+    # Получим ник
+    name = sock.recv(BUFSIZ).decode("utf8")
 
-    name = client.recv(BUFSIZ).decode("utf8")
-    welcome = 'Бобро пожаловать, {}! Если хотите выйти – ввелите {{quit}}.'.format(name)
-    client.send(bytes(welcome, "utf8"))
-    msg = "{} присоединился к чату!".format(name)
+    if name == '{quit}':
+        # Если вдруг кто-то не захотел болтать
+        print('{} отсоединился'.format(address))
+        sock.send(bytes("{quit}", "utf8"))
+        sock.close()
+        return
+
+    client = Client(sock, address, name)
+    # Прибывший
+    welcome = 'Бобро пожаловать, {}! Если хотите выйти – введите {{quit}}.'.format(client.name)
+    client.sock.send(bytes(welcome, "utf8"))
+    # Скажем остальным
+    msg = "{} присоединился к чату!".format(client.name)
     broadcast(bytes(msg, "utf8"))
-    clients[client] = name
 
     while True:
-        msg = client.recv(BUFSIZ)
+        msg = client.sock.recv(BUFSIZ)
         if msg != bytes("{quit}", "utf8"):
-            broadcast(msg, name+": ")
+            broadcast(msg, "{}: ".format(client.name))
         else:
-            client.send(bytes("{quit}", "utf8"))
-            client.close()
-            del clients[client]
+            # разрываем соединение с этим клиентом
+            name = client.name
+            address = client.address
+            client.sock.send(bytes("{quit}", "utf8"))
+            client.delete()
+            # Оповещение
             broadcast(bytes("{} покинул чат.".format(name), "utf8"))
+            print('{} отсоединился'.format(address))
             break
 
 
 def broadcast(msg, prefix=""):  # prefix is for name identification.
-    """Broadcasts a message to all the clients."""
+    """Рассылаем сообщение всем клиентам"""
+    for sock in Client.BASE:
+        sock.send(bytes(prefix, "utf8") + msg)
 
-    for sock in clients:
-        sock.send(bytes(prefix, "utf8")+msg)
+
+class Client:
+    BASE = {}
+
+    def __init__(self, sock, address, name):
+        self.sock = sock
+        self.address = address
+        self.name = name
+        self.pwd = random.getrandbits(128).to_bytes(aes.KEY_SIZE_BYTES, byteorder='big')
+        # запоминаем челика
+        Client.BASE[self.sock] = self
+
+    def delete(self):
+        del Client.BASE[self.sock]
+        self.sock.close()
 
         
-clients = {}
-addresses = {}
-
 HOST = ''
-PORT = 33000
+PORT = 33001
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
 

@@ -2,7 +2,13 @@
 """Script for Tkinter GUI chat client."""
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
+from time import sleep
+import aes.encrypt
+import aes.decrypt
 import tkinter
+
+DEFAULT_IP = '127.0.0.1'
+DEFAULT_PORT = '33001'
 
 
 def receive():
@@ -11,6 +17,10 @@ def receive():
         try:
             msg = client_socket.recv(BUFSIZ).decode("utf8")
             msg_list.insert(tkinter.END, msg)
+            if msg == '{quit}':
+                print('Разрываю соединение')
+                client_socket.close()
+                top.quit()
         except OSError:  # Possibly client has left the chat.
             break
 
@@ -20,9 +30,6 @@ def send(event=None):  # event is passed by binders.
     msg = my_msg.get()
     my_msg.set("")  # Clears input field.
     client_socket.send(bytes(msg, "utf8"))
-    if msg == "{quit}":
-        client_socket.close()
-        top.quit()
 
 
 def on_closing(event=None):
@@ -54,8 +61,8 @@ send_button.pack()
 top.protocol("WM_DELETE_WINDOW", on_closing)
 
 # ----Now comes the sockets part----
-HOST = input('Введите ip сервера: ')
-PORT = input('Введите порт сервера: ')
+HOST = DEFAULT_IP    # input('Введите ip сервера: ')
+PORT = DEFAULT_PORT  # input('Введите порт сервера: ')
 if not PORT:
     PORT = 33000
 else:
