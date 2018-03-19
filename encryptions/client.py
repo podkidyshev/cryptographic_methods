@@ -8,13 +8,19 @@ from messages import *
 
 DEFAULT_IP = '127.0.0.1'
 DEFAULT_PORT = '33000'
+pwd = None
 
 
 def receive():
     """Handles receiving of messages."""
     while True:
         try:
-            msg = handle_receive(client_socket.recv(BUFSIZ))
+            global pwd
+            pack = handle_receive(client_socket.recv(BUFSIZ), key_in=pwd)
+            if 'pwd' in pack:
+                print('Принят новый ключ: {}'.format(pack['pwd']))
+                pwd = pack['pwd'].to_bytes(aes.KEY_SIZE_BYTES, byteorder='big')
+            msg = pack['msg']
             msg_list.insert(tkinter.END, msg)
             if msg == '{quit}':
                 print('Разрываю соединение')
@@ -28,7 +34,7 @@ def send(event=None):  # event is passed by binders.
     """Handles sending of messages."""
     msg = my_msg.get()
     my_msg.set("")  # Clears input field.
-    client_socket.send(handle_send(msg))
+    client_socket.send(handle_send(msg, key_out=pwd))
 
 
 def on_closing(event=None):
