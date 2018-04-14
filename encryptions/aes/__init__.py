@@ -87,4 +87,7 @@ def print_state(state):
 
 
 def print_in_hex(bytes_list):
-    print(list(map(hex, bytes_list)))
+    res = ''
+    for byte in bytes_list:
+        res += str(hex(byte))[2:]
+    print(res)
