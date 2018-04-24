@@ -48,3 +48,15 @@ def inverse(k, q):
     if (k * res) % q != 1:
         raise ArithmeticError('lol')
     return res
+
+
+def to_4_bytes(a: int):
+    return a.to_bytes(length=8, byteorder='little')
+
+
+def from_4_bytes(b: bytes):
+    return int.from_bytes(b, byteorder='little')
+
+
+def read_4(f):
+    return from_4_bytes(f.read(8))

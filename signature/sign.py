@@ -11,10 +11,10 @@ def main():
     content_bytes = content.encode('utf-8')
     sign = signing.sign(content_bytes)
 
-    with open(os.path.abspath('.\\a.signed'), 'w') as f:
+    with open(os.path.abspath('.\\a.signed'), 'wb') as f:
         for param in sign:
-            f.write('{}\n'.format(param))
-        f.write(content)
+            f.write(signing.to_4_bytes(param))
+        f.write(content.encode('utf-8'))
 
 
 if __name__ == '__main__':
