@@ -1,0 +1,254 @@
+脚本已结束：:
+function: mima = "2561606405"
+v_value = gg.prompt({
+  "加群获取密码  群号796554063"
+}, {
+  [1] = 0
+}, {
+  [1] = "number"
+})
+function m()
+  print("温柔6.27更新多功能刺激脚本     脚本群：796554063")
+end
+function end_c()
+  print("温柔6.27更新多功能刺激脚本    脚本群:796554063")
+  os.exit()
+end
+if v_value[1] == mima then
+  m()
+else
+  end_c()
+end
+
+
+
+gg.alert('部分手机封号是因为腾讯检测处理器无解！有问题请加群我们的脚本群！群号：796554063')
+gg.alert('正义或许会迟到 但永远不会缺席')
+
+
+function START()
+qz= gg.choice({"👽1持枪加速【大厅】👽","          👽2飞行加速【大厅】👽","👽3掉落锁血【落地】👽","          👽4超级高跳【落地】👽","👽5全图除草【靶场】👽","          👽6子弹追踪【大厅】👽","👽7人物透视【落地】👽","          👽8人物白色【落地】👽","👽9趴下视角【落地】👽","          👽8最新遁地【落地】👽","👽7范围除草【落地】👽","          👽6视角拉近【落地】👽","👽5人物全穿【落地】👽","          👽4人物飞天【落地】👽","👽3全局加速【落地】👽","          👽2地皮透视【落地】👽","👽1房屋透视【落地】👽","          退出脚本"}, nil, "温柔6.27免费更新有问题速度进群反馈")
+
+if qz == 1 then G2()
+end
+if qz == 2 then G3()
+end
+if qz == 3 then G4()
+end
+if qz == 4 then G5()
+end
+if qz == 5 then G6()
+end
+if qz == 6 then G7()
+end
+if qz == 7 then G8()
+end
+if qz == 8 then G9()
+end
+if qz == 9 then G10()
+end
+if qz == 10 then Z11()
+end
+if qz == 11 then Z12()
+end
+if qz == 12 then Z13()
+end
+if qz == 13 then Z14()
+end
+if qz == 14 then Z15()
+end
+if qz == 15 then Z16()
+end
+if qz == 16 then Z17()
+end
+if qz == 17 then Z18()
+end
+if qz == 18 then sdone()
+end
+STARTDM = -1
+end
+
+
+function G2()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults() gg.searchNumber('6.25', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('6.25', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1) 
+gg.editAll('10', gg.TYPE_DOUBLE) 
+gg.toast('持枪加速开启成功')
+end
+
+
+function G3()   
+gg.alert('温柔脚本群：796554063') 
+gg.clearResults() gg.searchNumber('1.90625F;1.4012985e-45F;1D;1;1.875F::40', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('1', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1) 
+gg.editAll('3', gg.TYPE_DOUBLE) 
+gg.toast('飞行加速开启成功')
+end
+
+
+function G4()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber('0.03E;0.6E;1.0E;0.5E::512', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('1', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(100) 
+gg.editAll('0', gg.TYPE_DOUBLE) 
+gg.toast('防摔开启成功')
+end
+
+
+function G5()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber('-5E;2D;3.0E;1D', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('3', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1) 
+gg.editAll('60', gg.TYPE_DOUBLE) 
+gg.toast('高跳开启成功')
+end
+
+
+function G6()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber("10D;5,126D;3D;11D::", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber("10", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(50) 
+gg.editAll("0", gg.TYPE_FLOAT)
+gg.toast("全图除草开启成功")
+end
+
+
+function G7()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber("-0.16666667163;0.99998998642;881797.375:666", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber("0.99998998642", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(100) 
+gg.editAll("999", gg.TYPE_FLOAT)
+gg.toast("子弹追踪开启成功")
+end
+
+
+function G8()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults() gg.searchNumber('1.6623046e-19;2.0;0.75;0.00100000005', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('2.0', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(100)
+gg.editAll('0.4', gg.TYPE_FLOAT)
+gg.toast('透视开启成功')
+end
+
+
+function G9()
+gg.clearResults() 
+gg.searchNumber('0.5;5.0;1,065,353,216D;1.0;1.5::60', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('1.5', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(100)
+gg.editAll('99', gg.TYPE_FLOAT)
+gg.toast('人物白色开启成功')
+end
+
+
+function G10()
+gg.clearResults()
+gg.searchNumber('0.5;1.85;0.4;0.76', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('0.4', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(50)
+gg.editAll('20', gg.TYPE_DOUBLE)
+gg.toast('趴下视角开启成功')
+end  
+
+function Z11()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber('4.9e-324E;1;0W;0W;1;0.01;0.2;0.0078125E::380',gg.TYPE_FLOAT,false,gg.SIGN_EQUAL,0,-1) gg.searchNumber('1',gg.TYPE_FLOAT,false,gg.SIGN_DOUBLE,0,-1)
+gg.getResults(5)
+gg.editAll('30',gg.TYPE_FLOAT)
+gg.toast('最新遁地开启成功')
+end
+
+function Z12()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber('2.0;1.1204991e-19;3.0828566e-44', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('2.0', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(100)
+gg.editAll('0', gg.TYPE_FLOAT)
+gg.toast('范围除草开启成功')
+end
+
+  
+function Z13()
+gg.clearResults()
+gg.searchNumber('3.1764074e-29;1.0;2.0;-1::110', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('2.0', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(100)
+gg.editAll('0.75', gg.TYPE_FLOAT)
+gg.toast('趴下视角开启成功')  
+end  
+
+function Z14()
+gg.alert('温柔脚本群：796554063    配合遁地')
+gg.clearResults()gg.searchNumber("10000;10000;10000;0.5;0.0001;0.0001;255D::", gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber("0.5",gg.TYPE_FLOAT,false,gg.SIGN_EQUAL,0,-1)
+gg.getResults(100)
+gg.editAll("0", gg.TYPE_FLOAT)
+gg.toast("全穿开启成功")
+end
+
+function Z15()
+gg.alert('温柔脚本群：796554063    -1上升   0停止    1下降   9.8默认')
+gg.clearResults() gg.searchNumber('2;0.5;9.8::24h',gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('9.8', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1)
+gg.editAll('-1', gg.TYPE_DOUBLE) 
+gg.toast('人物飞天开启成功')
+end
+
+
+function Z16()
+gg.alert('温柔脚本群：796554063    包含了多种加速')
+gg.clearResults() gg.searchNumber('22.5;0.8;1;0.01', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('1', gg.TYPE_DOUBLE, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(50) 
+gg.editAll('1.39', gg.TYPE_DOUBLE) 
+gg.toast('全能加速开启成功')
+end
+
+function Z17()
+gg.alert('温柔脚本群：796554063')
+gg.clearResults()gg.searchNumber('0.0078125E;1,065,353,216D;1,065,353,216D;1,065,353,216D;1.0F;-3,200.0F;6,400.0F::120', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('1', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1)
+gg.editAll('0', gg.TYPE_FLOAT)
+gg.toast('地皮透视开启成功')
+end
+
+
+function Z18()
+gg.alert('温柔脚本群：796554063')
+g.clearResults()gg.searchNumber('2.0F;-0.75F;0.2499999797F;0.99900001287F;0.00100000005F::512', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.searchNumber('0.2', gg.TYPE_FLOAT, false, gg.SIGN_EQUAL, 0, -1)
+gg.getResults(1) 
+gg.editAll('0', gg.TYPE_FLOAT) 
+gg.toast('房屋透视开启成功')
+end
+
+
+
+function sdone()
+print('温柔6.27刺激更新️')
+print('                                     ')
+print('温柔每天免费更新 感谢支持！')
+  os.exit()
+end
+
+
+
+while true do
+  if gg.isVisible(true) then
+    STARTDM = 1
+    gg.setVisible(false)
+  end
+  if STARTDM == 1 then
+    START()
+  end
+end:0-0
